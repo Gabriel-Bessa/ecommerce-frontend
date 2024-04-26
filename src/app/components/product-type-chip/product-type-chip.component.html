@@ -1,0 +1,6 @@
+<p-chip>
+  <span *ngIf="type === 'SERVICE_COMBO'" class="bg-primary border-circle w-2rem h-2rem flex align-items-center justify-content-center">CS</span>
+  <span *ngIf="type === 'SINGLE_SERVICE'" class="bg-purple-600 text-white border-circle w-2rem h-2rem flex align-items-center justify-content-center">SA</span>
+  <span *ngIf="type === 'PRODUCT'" class="bg-green-600 text-white border-circle w-2rem h-2rem flex align-items-center justify-content-center">P</span>
+  <span class="ml-2 font-medium">{{type | ProductTypePipe}}</span>
+</p-chip>

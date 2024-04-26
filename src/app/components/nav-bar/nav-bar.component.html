@@ -1,0 +1,15 @@
+<div class="layout-topbar">
+  <a class="layout-topbar-logo" routerLink="/home">
+    <img alt="logo" src="https://bessatech.s3.amazonaws.com/logo.png">
+    <span>{{projectName}}</span>
+  </a>
+
+  <div [ngClass]="{'layout-topbar-menu-mobile-active': topMenuActive}" class="layout-topbar-menu">
+    <button (click)="userSideBarActive = !userSideBarActive">Login/Logout</button>
+  </div>
+</div>
+<p-sidebar [(visible)]="userSideBarActive" [baseZIndex]="10000" position="right">
+  <div>
+    <h3>Usuário</h3>
+  </div>
+</p-sidebar>

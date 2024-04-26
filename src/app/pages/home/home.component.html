@@ -1,0 +1,23 @@
+<div class="grid">
+  <div class="col-12 md:col-6 lg:col-3" *ngFor="let product of products.content">
+    <p-card [header]="product.name">
+
+      <ec-product-type-chip [type]="product.type"></ec-product-type-chip>
+
+      <p class="text-primary xl:text-3xl">{{product.value | currency:'BRL'}}</p>
+
+      <ng-template pTemplate="header">
+        <img alt="Image do produto" [src]="product.imgUrl" />
+      </ng-template>
+
+      <p> {{product.description}} </p>
+      <ng-template pTemplate="footer">
+        <p-button label="Comprar" icon="pi pi-plus"></p-button>
+      </ng-template>
+    </p-card>
+
+  </div>
+</div>
+
+
+

@@ -1,14 +1,19 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {PrimeNGConfig} from "primeng/api";
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [CommonModule, RouterOutlet],
+  selector: 'ec-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'eccomerce-frontend';
+export class AppComponent implements OnInit {
+
+  constructor(private config: PrimeNGConfig) {
+  }
+
+  ngOnInit() {
+    this.config.setTranslation({
+      accept: 'Aceitar', reject: 'Cancelar',
+    });
+  }
+
 }
