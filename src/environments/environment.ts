@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
-  backendUrl: 'http://localhost:8080/api/ecommerce',
+  backendUrl: 'http://api.ecommerce.com.br/api/ecommerce',
   applicationName: "Ecommerce",
 };
