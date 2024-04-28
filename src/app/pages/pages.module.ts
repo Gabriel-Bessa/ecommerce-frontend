@@ -3,11 +3,12 @@ import { NgModule } from '@angular/core';
 import { PagesRoutingModule } from './pages-routing.module';
 import {PrimeModule} from "../components/commons/prime.module";
 import {HomeModule} from "./home/home.module";
+import {LoginComponent} from "./login/login.component";
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [LoginComponent],
   imports: [
     PagesRoutingModule,
     HomeModule,

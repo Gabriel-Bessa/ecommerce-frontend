@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {environment} from "../../environments/environment";
 import {Observable} from "rxjs";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
-export class HomeService {
+export class LoginService {
 
   constructor(private http: HttpClient) {
+
   }
 
-  filter(): Observable<Object> {
-    return this.http.post(`${environment.backendUrl}/v1/product/filter`, {})
+  login(formData: any) : Observable<any> {
+    return this.http.post(`${environment.backendUrl}/login`, formData)
   }
 }

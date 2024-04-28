@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {HomeService} from "../home.service";
+import {HomeService} from "./home.service";
 import {Page, PageImpl} from "../../models/page.model";
 
 @Component({

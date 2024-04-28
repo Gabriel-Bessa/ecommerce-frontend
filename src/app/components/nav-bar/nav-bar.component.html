@@ -4,8 +4,9 @@
     <span>{{projectName}}</span>
   </a>
 
-  <div [ngClass]="{'layout-topbar-menu-mobile-active': topMenuActive}" class="layout-topbar-menu">
-    <button (click)="userSideBarActive = !userSideBarActive">Login/Logout</button>
+  <div class="layout-topbar-menu">
+    <p-avatar *ngIf="isAuth" icon="pi pi-user" styleClass="mr-2" size="xlarge"></p-avatar>
+    <p-avatar *ngIf="!isAuth" icon="pi pi-sign-in" styleClass="mr-2" size="xlarge" (click)="redirectToLogin()"></p-avatar>
   </div>
 </div>
 <p-sidebar [(visible)]="userSideBarActive" [baseZIndex]="10000" position="right">
