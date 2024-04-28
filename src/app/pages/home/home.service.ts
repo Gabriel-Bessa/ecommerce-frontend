@@ -12,6 +12,6 @@ export class HomeService {
   }
 
   filter(): Observable<Object> {
-    return this.http.post(`${environment.backendUrl}/v1/product/filter`, {})
+    return this.http.post(`${environment.backendUrl}/v1/public/product/filter`, {})
   }
 }

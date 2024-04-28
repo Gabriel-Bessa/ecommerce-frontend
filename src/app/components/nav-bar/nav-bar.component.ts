@@ -1,6 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Router} from "@angular/router";
 import {SecurityUtils} from "../../pages/utils/security-utils";
+import {CartService} from "../service/cart.service";
+import {Sidebar} from "primeng/sidebar";
+import {ToastService} from "../service/toast.service";
 
 @Component({
   selector: 'ec-nav-bar',
@@ -9,10 +12,12 @@ import {SecurityUtils} from "../../pages/utils/security-utils";
 })
 export class NavBarComponent implements OnInit {
   isAuth: boolean = SecurityUtils.isAuth();
-  userSideBarActive: boolean = false;
+  cartSideBarActive: boolean = false;
   projectName: string = "E-commerce";
+  @ViewChild('sidebarRef') sidebarRef!: Sidebar;
+  hasPendingProducts: boolean = false;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, protected cartService: CartService, private toastService: ToastService) {
   }
 
   redirectToLogin() {
@@ -20,5 +25,42 @@ export class NavBarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  activeCart() {
+    let cart = this.cartService.cart$.getValue()
+    if (this.cartService.cart$.getValue() != null && cart.length > 0) {
+      this.cartSideBarActive = !this.cartSideBarActive
+    }
+  }
+
+  finalizeCart() {
+    let cart = this.cartService.cart$.getValue()
+    this.hasPendingProducts = cart.map(it => it.needsConfirmation).filter(it => it == true)[0] ?? false
+    let products = cart.map(it => {
+      return {
+        id: it.id,
+        quantity: 1
+      }
+    })
+    this.makeNextStep(products);
+  }
+
+  private makeNextStep(products: { quantity: number; id: any }[]) {
+    this.cartSideBarActive = false;
+    let text = this.hasPendingProducts ? 'Existe um item que precisa de aprovação de terceiros, por motivos de análise de cobertura!' : ''
+    this.toastService.confirm('Finalizar compra?', text, () => {
+      this.cartService.finalize(products).subscribe(resp => {
+        this.toastService.sendSuccess('Compra', 'A compra foi realizada com sucesso!')
+        this.cartService.cleanCart()
+      })
+    }, () => {
+      this.toastService.sendSuccess('Compra', 'Encontramos um problema...')
+      this.cartSideBarActive = true;
+    })
+  }
+
+  closeCallback(e: any): void {
+    this.sidebarRef.close(e);
   }
 }
