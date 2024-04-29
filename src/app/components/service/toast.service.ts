@@ -26,12 +26,12 @@ export class ToastService {
     })
   }
 
-  confirm(title: string, text: string, successCallback: Function = () => {}, errorCallback: Function = () => {}) {
+  confirm(title: string, text: string, confirmButtonText: string, successCallback: Function = () => {}, errorCallback: Function = () => {}) {
     Swal.fire({
       title: title,
       text: text,
       showDenyButton: true,
-      confirmButtonText: "Finalizar",
+      confirmButtonText: confirmButtonText,
       denyButtonText: `Sair`
     }).then((result) => {
       if (result.isConfirmed) {

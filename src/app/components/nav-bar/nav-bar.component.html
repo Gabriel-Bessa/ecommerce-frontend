@@ -5,8 +5,8 @@
   </a>
 
   <div class="layout-topbar-menu">
-    <p-avatar *ngIf="isAuth" icon="pi pi-user" styleClass="mr-2" size="large"></p-avatar>
-    <p-avatar *ngIf="!isAuth" icon="pi pi-sign-in" styleClass="mr-2" size="large"
+    <p-avatar *ngIf="cartService.user$.getValue() != null" icon="pi pi-user" styleClass="mr-2" size="large" (click)="logout()"></p-avatar>
+    <p-avatar *ngIf="cartService.user$.getValue() == null" icon="pi pi-sign-in" styleClass="mr-2" size="large"
               (click)="redirectToLogin()"></p-avatar>
     <p-avatar icon="pi pi-shopping-cart" styleClass="mr-2" size="large" pBadge
               [value]="cartService.cart$.getValue().length" (click)="activeCart()"></p-avatar>

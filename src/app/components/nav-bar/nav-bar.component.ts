@@ -13,6 +13,7 @@ import {ToastService} from "../service/toast.service";
 export class NavBarComponent implements OnInit {
   isAuth: boolean = SecurityUtils.isAuth();
   cartSideBarActive: boolean = false;
+  userSideBarActive: boolean = false;
   projectName: string = "E-commerce";
   @ViewChild('sidebarRef') sidebarRef!: Sidebar;
   hasPendingProducts: boolean = false;
@@ -48,19 +49,35 @@ export class NavBarComponent implements OnInit {
 
   private makeNextStep(products: { quantity: number; id: any }[]) {
     this.cartSideBarActive = false;
+    if (SecurityUtils.isAuth()) {
+      this.finalizeStep(products);
+      return;
+    }
+    this.toastService.confirm('Autenticação', 'Deve-se autenticar para finalizar a compra', 'Login', () => {
+        this.router.navigate(['login'])
+    }, () => {})
+  }
+
+  private finalizeStep(products: { quantity: number; id: any }[]) {
     let text = this.hasPendingProducts ? 'Existe um item que precisa de aprovação de terceiros, por motivos de análise de cobertura!' : ''
-    this.toastService.confirm('Finalizar compra?', text, () => {
+    this.toastService.confirm('Finalizar compra?', text, 'Finalizar', () => {
       this.cartService.finalize(products).subscribe(resp => {
         this.toastService.sendSuccess('Compra', 'A compra foi realizada com sucesso!')
         this.cartService.cleanCart()
       })
     }, () => {
-      this.toastService.sendSuccess('Compra', 'Encontramos um problema...')
+      this.toastService.sendError('Compra', 'Encontramos um problema...')
       this.cartSideBarActive = true;
     })
   }
 
   closeCallback(e: any): void {
     this.sidebarRef.close(e);
+  }
+
+  logout() {
+    console.log("dsadas")
+    this.cartService.cleanUser()
+    this.router.navigate(['login'])
   }
 }

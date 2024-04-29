@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.service.filter().subscribe(resp => this.products = resp as Page<any>);
+    this.cartService.loadCart();
   }
 
   addToCart($event: any): void {
