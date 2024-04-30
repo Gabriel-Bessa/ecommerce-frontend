@@ -1,0 +1,18 @@
+<p-card>
+
+  <ng-template pTemplate="subtitle">
+    <h1 class="product-title">{{product.name}}</h1>
+  </ng-template>
+  <ec-product-type-chip [type]="product.type"></ec-product-type-chip>
+
+  <p class="text-primary xl:text-3xl product-text">{{product.value | currency:'BRL'}}</p>
+
+  <ng-template pTemplate="header">
+    <img alt="Image do produto" [src]="product.imgUrl" />
+  </ng-template>
+
+  <p class="product-text"> {{product.description}} </p>
+  <ng-template pTemplate="footer">
+    <p-button label="Comprar" icon="pi pi-plus" (click)="addToCart(product)" ></p-button>
+  </ng-template>
+</p-card>

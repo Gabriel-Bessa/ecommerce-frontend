@@ -11,7 +11,7 @@ export class HomeService {
   constructor(private http: HttpClient) {
   }
 
-  filter(): Observable<Object> {
-    return this.http.post(`${environment.backendUrl}/v1/public/product/filter`, {})
+  filter(filter: any = {}): Observable<Object> {
+    return this.http.post(`${environment.backendUrl}/v1/public/product/filter`, filter)
   }
 }

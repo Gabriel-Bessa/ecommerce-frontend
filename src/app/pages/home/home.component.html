@@ -1,24 +1,37 @@
-<div class="grid">
+<p-tabView class="card" (activeIndexChange)="changeTab($event)" xmlns="http://www.w3.org/1999/html">
+  <p-tabPanel header="Produtos">
+    <div class="grid">
+      <div class="col-12 md:col-6 lg:col-3" *ngFor="let product of products.content">
+        <ec-product-card [item]="product"></ec-product-card>
+      </div>
+    </div>
+  </p-tabPanel>
+  <p-tabPanel header="Serviços">
+    <div class="grid">
+      <div class="col-12 md:col-6 lg:col-3" *ngFor="let product of products.content">
+        <ec-product-card [item]="product"></ec-product-card>
+      </div>
+    </div>
+  </p-tabPanel>
+  <p-tabPanel header="Combos">
+    <div class="grid">
+      <div class="col-12">
+        <p-toolbar>
+          <div class="p-toolbar-group-start"></div>
+          <div class="p-toolbar-group-center">
+            <p-inputMask mask="99-999999" type="text" placeholder="CEP" [(ngModel)]="targetCep"></p-inputMask>
+            <button type="button" pButton icon="pi pi-search" (click)="loadData()"[disabled]="targetCep == ''"></button>
+          </div>
+          <div class="p-toolbar-group-end">
+          </div>
+        </p-toolbar>
+      </div>
 
-  <div class="col-12 md:col-6 lg:col-3" *ngFor="let product of products.content">
-    <p-card [header]="product.name">
-
-      <ec-product-type-chip [type]="product.type"></ec-product-type-chip>
-
-      <p class="text-primary xl:text-3xl">{{product.value | currency:'BRL'}}</p>
-
-      <ng-template pTemplate="header">
-        <img alt="Image do produto" [src]="product.imgUrl" />
-      </ng-template>
-
-      <p> {{product.description}} </p>
-      <ng-template pTemplate="footer">
-        <p-button label="Comprar" icon="pi pi-plus" (click)="addToCart(product)" ></p-button>
-      </ng-template>
-    </p-card>
-  </div>
-</div>
-<button pButton type="button" label="dasd"></button>
-
-
-
+      <div *ngIf="targetCep != ''" class="grid">
+        <div  class="col-12 md:col-6 lg:col-4" *ngFor="let product of products.content">
+          <ec-product-card [item]="product"></ec-product-card>
+        </div>
+      </div>
+    </div>
+  </p-tabPanel>
+</p-tabView>
