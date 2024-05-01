@@ -52,3 +52,7 @@ a {
 .card.card-w-title {
   padding-bottom: 2rem;
 }
+
+.h-main-full {
+  height: 90vh;
+}

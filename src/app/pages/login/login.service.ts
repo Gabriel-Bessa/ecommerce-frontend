@@ -15,4 +15,8 @@ export class LoginService {
   login(formData: any) : Observable<any> {
     return this.http.post(`${environment.backendUrl}/login`, formData)
   }
+
+  register(body: any) : Observable<any> {
+    return this.http.post(`${environment.backendUrl}/v1/public/users`, body)
+  }
 }

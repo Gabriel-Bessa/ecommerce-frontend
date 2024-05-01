@@ -84,11 +84,13 @@ import {VirtualScrollerModule} from "primeng/virtualscroller";
 import {StyleClassModule} from "primeng/styleclass";
 import {SpeedDialModule} from 'primeng/speeddial';
 import {ReactiveFormsModule} from "@angular/forms";
+import {StepperModule} from "primeng/stepper";
 
 @NgModule({
     declarations: [],
     exports: [
         ReactiveFormsModule,
+        StepperModule,
         SpeedDialModule,
         FormsModule,
         HttpClientModule,
@@ -174,6 +176,7 @@ import {ReactiveFormsModule} from "@angular/forms";
         StyleClassModule,
     ],
     imports: [
+        StepperModule,
         ReactiveFormsModule,
         SpeedDialModule,
         CommonModule,

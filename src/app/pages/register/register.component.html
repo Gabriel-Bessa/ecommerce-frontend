@@ -1,25 +1,88 @@
-<div class="surface-0 flex align-items-center justify-content-center hf-h-screen overflow-hidden">
-  <div class="grid justify-content-center p-2 lg:p-0" style="min-width:80%">
-    <div class="col-12 mt-5 xl:mt-0 text-center">
-    </div>
-    <div class="col-12 xl:col-6" style="border-radius:56px; padding:0.3rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%);">
-      <div class="h-full w-full m-0 py-7 px-4" style="border-radius:53px; background: linear-gradient(180deg, var(--surface-50) 38.9%, var(--surface-0));">
+<div class="p-card h-main-full p-5">
+  <p-steps [model]="items" [readonly]="false" [activeIndex]="activeIndex" (activeIndexChange)="onActiveIndexChange($event)"></p-steps>
 
-        <div class="text-center mb-5">
-          <div class="text-900 text-3xl font-medium mb-3">Bem Vindo(a)</div>
-          <span class="text-600 font-medium">Faça login para continuar</span>
+  <div class="text-center mt-7">
+    <h1>Registrar</h1>
+  </div>
+
+  <form class="grid p-1" [ngSwitch]="activeIndex" [formGroup]="form">
+    <div *ngSwitchCase="0" class="col-12 grid">
+      <div class="col-12 md:col-9">
+        <div class="w-full">
+          <label for="name" class="block text-900 text-xl font-medium mb-2">Nome</label>
+          <input pInputText id="name" formControlName="name"  placeholder="Nome" class="w-full mb-3 p-4">
         </div>
-
-        <div class="w-full md:w-10 mx-auto" >
-          <label for="email1" class="block text-900 text-xl font-medium mb-2">Email</label>
-          <input id="email1" type="text" placeholder="Email" pInputText class="w-full mb-3" style="padding:1rem;">
-
-          <label for="password1" class="block text-900 font-medium text-xl mb-2">Senha</label>
-          <input id="password1" type="password" placeholder="Senha" pInputText class="w-full mb-3" style="padding:1rem;">
-
-          <button pButton pRipple label="Entrar" class="w-full p-3 text-xl" ></button>
+        <div class="w-full">
+          <label for="email" class="block text-900 text-xl font-medium mb-2">Email</label>
+          <input pInputText id="email" formControlName="email"  placeholder="Email" class="w-full mb-3 p-4">
+        </div>
+        <div class="w-full">
+          <label for="cpf" class="block text-900 text-xl font-medium mb-2">CPF</label>
+          <input pInputText mask="000.000.000-00" id="cpf" formControlName="cpf"  placeholder="CPF" class="w-full mb-3 p-4"/>
+        </div>
+        <div class="w-full">
+          <label for="password" class="block text-900 text-xl font-medium mb-2">Senha</label>
+          <input pInputText type="password" id="password" formControlName="password" placeholder="Senha" class="w-full mb-3 p-4">
+        </div>
+        <div class="w-full">
+          <label for="password" class="block text-900 text-xl font-medium mb-2">Confirmar Senha</label>
+          <input pInputText type="password" id="confirm_password" placeholder="Senha" class="w-full mb-3 p-4">
+        </div>
+      </div>
+      <div class="col-12 md:col-3">
+        <div class="w-full pt-3">
+          <label for="birthDate" class="block text-900 text-xl font-medium mb-2">Data de nacimento</label>
+          <p-calendar
+            id="birthDate" class="max-w-full" formControlName="birthDate" [inline]="true" [showWeek]="true"></p-calendar>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="field col-12 text-center">
+          <button pButton class="w-full" label="Próximo" (click)="nextTab()"></button>
         </div>
       </div>
     </div>
-  </div>
+
+    <div class="col-12 formgrid grid w-full" *ngSwitchCase="1">
+      <div class="field col-12 md:col-6">
+        <label for="cep" class="block text-900 text-xl font-medium mb-2">Cep</label>
+        <input
+          pInputText [ngClass]="this.form.get('cep')?.touched == true && !this.form.get('cep')?.valid ? 'ng-dirty ng-invalid' : ''"
+          id="cep" formControlName="cep" class="text-base text-color surface-overlay p-2 w-full p-4" (change)="searchCep()">
+      </div>
+      <div class="field col-12 md:col-4">
+        <label for="city" class="block text-900 text-xl font-medium mb-2">Cidade</label>
+        <input
+          pInputText [ngClass]="this.form.get('city')?.touched == true && !this.form.get('city')?.valid ? 'ng-dirty ng-invalid' : ''"
+          id="city" formControlName="city" class="text-base text-color surface-overlay p-2 w-full p-4">
+      </div>
+      <div class="field col-12 md:col-1">
+        <label for="uf" class="block text-900 text-xl font-medium mb-2">Uf</label>
+        <input
+          pInputText [ngClass]="this.form.get('uf')?.touched == true && !this.form.get('uf')?.valid ? 'ng-dirty ng-invalid' : ''"
+          id="uf" formControlName="uf" class="text-base text-color surface-overlay p-2 w-full p-4">
+      </div>
+      <div class="field col-12 md:col-1">
+        <label for="numero" class="block text-900 text-xl font-medium mb-2">Numero</label>
+        <input
+          pInputText [ngClass]="this.form.get('number')?.touched == true && !this.form.get('number')?.valid ? 'ng-dirty ng-invalid' : ''"
+          id="numero" formControlName="number" class="text-base text-color surface-overlay p-2 w-full p-4">
+      </div>
+      <div class="field col-12 md:col-8">
+        <label for="logradouro" class="block text-900 text-xl font-medium mb-2">Logradouro</label>
+        <input
+          pInputText [ngClass]="this.form.get('street')?.touched == true && !this.form.get('street')?.valid ? 'ng-dirty ng-invalid' : ''"
+          id="logradouro" formControlName="street" class="text-base text-color surface-overlay p-2 w-full p-4">
+      </div>
+      <div class="field col-12 md:col-4">
+        <label for="complemento" class="block text-900 text-xl font-medium mb-2">Complemento</label>
+        <input
+          pInputText [ngClass]="this.form.get('complement')?.touched == true && !this.form.get('complement')?.valid ? 'ng-dirty ng-invalid' : ''"
+          id="complemento" formControlName="complement" class="text-base text-color surface-overlay p-2 w-full p-4">
+      </div>
+      <div class="field col-12 text-center">
+        <button pButton class="w-full" label="Registrar" (click)="register()" [loading]="isLoading"></button>
+      </div>
+    </div>
+  </form>
 </div>

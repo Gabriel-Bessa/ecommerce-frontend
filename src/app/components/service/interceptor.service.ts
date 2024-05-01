@@ -32,7 +32,7 @@ export class InterceptorService implements HttpInterceptor {
             case 204:
                 break;
             case 400:
-                this.getToast('warning', resp.error.propertie, resp.error.details);
+                this.getToast('warning', resp.error.field, resp.error.msg);
                 break;
             case 401:
             case 403:
