@@ -24,12 +24,12 @@ export class RegisterComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private loginService: LoginService, private http: HttpClient,
               private toastService: ToastService, private router: Router) {
     this.form = this.formBuilder.group({
-      name: ['Gabriel', [Validators.required]],
-      email: ['bessagabriel490@gmail.com', [Validators.required]],
-      cpf: ['15767646643', [Validators.required]],
-      password: ['123456', [Validators.required]],
+      name: [null, [Validators.required]],
+      email: [null, [Validators.required]],
+      cpf: [null, [Validators.required]],
+      password: [null, [Validators.required]],
       birthDate: [null, [Validators.required]],
-      cep: ['3260402', [Validators.required]],
+      cep: [null, [Validators.required]],
       street: [null, [Validators.required]],
       neighborhood: [null, [Validators.required]],
       number: [null, [Validators.required]],
