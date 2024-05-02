@@ -11,17 +11,17 @@ import {CartService} from "../../components/service/cart.service";
 })
 export class LoginComponent {
   password: string = "";
-  email: string = "";
+  cpf: string = "";
 
   constructor(private service: LoginService, private router: Router, private cartService: CartService) {
   }
 
   login() {
     let formData = new FormData();
-    formData.append('email', this.email);
+    formData.append('cpf', this.cpf);
     formData.append('password', this.password);
     this.service.login(formData).subscribe(resp => {
-      this.cartService.addUser({email: this.email, token: resp.access_token})
+      this.cartService.addUser({cpf: this.cpf, token: resp.access_token})
       SecurityUtils.setToken(resp.access_token);
       this.router.navigate(['/home'])
     })

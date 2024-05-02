@@ -26,9 +26,8 @@
           </div>
         </p-toolbar>
       </div>
-
       <div *ngIf="targetCep != ''" class="grid">
-        <div  class="col-12 md:col-6 lg:col-4" *ngFor="let product of products.content">
+        <div  class="col-12 md:col-6 lg:col-3" *ngFor="let product of products.content">
           <ec-product-card [item]="product"></ec-product-card>
         </div>
       </div>
